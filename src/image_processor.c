@@ -36,7 +36,6 @@ typedef struct {
     int rotate;
 } Options;
 
-// Function to rotate the image by 90 degrees clockwise
 unsigned char* rotate_image(unsigned char *image, int width, int height, int channels) {
     unsigned char *rotated = malloc(width * height * channels);
     if (!rotated) {
@@ -55,7 +54,6 @@ unsigned char* rotate_image(unsigned char *image, int width, int height, int cha
     return rotated;
 }
 
-// Function to upscale the image to 1920x1080 using nearest neighbor
 unsigned char* upscale_image(unsigned char *image, int width, int height, int channels) {
     int new_width = 1920;
     int new_height = 1080;
@@ -173,7 +171,7 @@ int main() {
     double time_single, time_multi;
 
     printf("Single and Multi-Threaded Image Processor\n");
-    printf("-----------------------------------------\n");
+    printf("\n");
 
     // Get image path
     printf("Enter the path to the input image: ");
@@ -263,7 +261,7 @@ int main() {
     process_image_single(image, width, height, 3, options.mode);
     end_time = clock();
     time_single = ((double)(end_time - start_time)) / CLOCKS_PER_SEC;
-    printf("Single-Threaded Processing Time: %.4f seconds\n", time_single);
+    printf("Single-Threaded Processing Time: %.6f seconds\n", time_single);
 
     // Save single-threaded output
     char output_single[256] = "output_single.jpg";
@@ -331,7 +329,7 @@ int main() {
 
     clock_t mt_end = clock();
     time_multi = ((double)(mt_end - mt_start)) / CLOCKS_PER_SEC;
-    printf("Multi-Threaded Processing Time: %.4f seconds\n", time_multi);
+    printf("Multi-Threaded Processing Time: %.6f seconds\n", time_multi);
 
     // Save multi-threaded output
     char output_multi[256] = "output_multi.jpg";
@@ -344,13 +342,13 @@ int main() {
 
     // =================== Performance Comparison ===================
     printf("\nPerformance Comparison:\n");
-    printf("------------------------\n");
-    printf("Single-Threaded: %.4f seconds\n", time_single);
-    printf("Multi-Threaded:  %.4f seconds\n", time_multi);
+    printf("\n");
+    printf("Single-Threaded: %.6f seconds\n", time_single);
+    printf("Multi-Threaded:  %.6f seconds\n", time_multi);
 
     // Simple ASCII bar graph
     printf("\nExecution Time Comparison:\n");
-    printf("--------------------------\n");
+    printf("\n");
     int max_length = 50;
     double max_time = (time_single > time_multi) ? time_single : time_multi;
     int single_length = (int)((time_single / max_time) * max_length);
@@ -359,12 +357,12 @@ int main() {
     printf("Single-Threaded: [");
     for(int i = 0; i < single_length; i++) printf("#");
     for(int i = single_length; i < max_length; i++) printf(" ");
-    printf("] %.4f s\n", time_single);
+    printf("] %.6f s\n", time_single);
 
     printf("Multi-Threaded:  [");
     for(int i = 0; i < multi_length; i++) printf("#");
     for(int i = multi_length; i < max_length; i++) printf(" ");
-    printf("] %.4f s\n", time_multi);
+    printf("] %.6f s\n", time_multi);
 
     // Conclusion
     printf("\nConclusion:\n");
